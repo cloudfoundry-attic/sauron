@@ -80,18 +80,18 @@ div.header form {
   color: red;
 }
 
-a.job_status.health-blue, a.job_status.health-blue_anime {
+a.job_status.status-success {
 	background: lightgreen;
 }
 
-a.job_status.health-yellow, a.job_status.health-yellow_anime {
+a.job_status.status-unstable {
 	background: lightyellow;
 }
 
-a.job_status.health-red, a.job_status.health-red_anime {
+a.job_status.status-failed {
 	background: red;
 }
 
-a.job_status.health-disabled {
+a.job_status.status-disabled {
 	background: lightgray;
 }
