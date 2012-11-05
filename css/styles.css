@@ -1,0 +1,97 @@
+body {
+	background: #ddd;
+}
+
+div.content_box {
+	padding: 10px;
+	margin: 0 10px 10px 0;
+	float: left;
+	width: 280px;
+	height: 320px;
+	background: #eee;
+	border-bottom: 1px #aaa solid;
+	border-right: 1px #aaa solid;
+}
+
+div.content_box h2 { 
+  margin-top: 0;
+  padding-bottom: 3px;
+  border-bottom: 1px #ddd solid;
+}
+
+a.job_status {
+  float: left;
+  height: 30px;
+  width: 30px;
+  background: #ccc;
+  border-right: 1px #fff solid;
+  border-top: 1px #fff solid;
+  display: block;
+}
+
+.job_status_caption {
+  padding-bottom: 5px;
+}
+
+div.view_info_container {
+  padding: 0px 0 5px;
+  border-bottom: 1px #ddd solid;
+  margin-bottom: 20px;
+}
+
+a.refresh_button {
+  float: right;
+  margin-left: 10px;
+}
+
+#refreshing_in_caption {
+  float: right;
+  display: none;
+}
+
+#enable_auto_refresh, #disable_auto_refresh {
+  display: none;
+}  
+
+#throbber {
+  float: right;
+  margin-right: 10px;
+  display: none;
+}
+
+.updated_at_line {
+  text-align: right;
+}
+
+.job_info {
+  padding-left: 10px;
+}
+
+div.header form {
+  float: left;
+  margin-bottom: 5px;
+}
+
+.clear {
+  clear: both;
+}
+
+.text-error {
+  color: red;
+}
+
+a.job_status.health-blue, a.job_status.health-blue_anime {
+	background: lightgreen;
+}
+
+a.job_status.health-yellow, a.job_status.health-yellow_anime {
+	background: lightyellow;
+}
+
+a.job_status.health-red, a.job_status.health-red_anime {
+	background: red;
+}
+
+a.job_status.health-disabled {
+	background: lightgray;
+}

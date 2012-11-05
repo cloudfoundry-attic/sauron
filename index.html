@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Jenkins Dashboard</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="css/styles.css" rel="stylesheet"/>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="http://underscorejs.org/underscore-min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="header">
+      <a class="btn btn-info refresh_button" id="refresh_now">Refresh Now</a>
+      
+      <a class="btn btn-success refresh_button" id="enable_auto_refresh">Enable Auto Refresh (every <span id="refresh_in_x_secs"></span> sec)</a>
+      <a class="btn btn-warning refresh_button" id="disable_auto_refresh">Disable Auto Refresh</a>      
+      
+      <img id="throbber" src="img/ajax-loader.gif"/>
+      
+      <h2 id="jenkins_root_url"></h2>
+
+      <form class="form-inline">
+        <label class="checkbox"><h4>http://</h4></label>
+        <input type="text" class="input-large" placeholder="Enter Jenkins target URL" id="jenkins_target">
+        <button type="submit" class="btn" id="update_jenkins_target">Update Jenkins Target</button>
+      </form>
+
+      <h4 class="updated_at_line">Updated <span id="updated_at"></span></h4>
+      
+      <div class="clear">&nbsp;</div>
+    </div>
+    <div class="content_box_container"></div>
+  </div>
+</body>
+
+</html>
