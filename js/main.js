@@ -130,7 +130,7 @@ $(function() {
         $.each(view_jobs, function(index, job_data) {
           
           // Skip disabled jobs + jobs with specified ommitted prefixes
-          if ( (job_data.name.indexOf('DELENG') < 0) && (map_color_to_status[job_data.color] != 'disabled') ) {
+          if ( (job_data.name.indexOf('DELENG') < 0) && (map_color_to_status[job_data.color] != 'Disabled') ) {
           
             if (job_data.lastFailedBuild) {
               last_failed_builds.push(job_data.lastFailedBuild.timestamp / 1000);
@@ -168,27 +168,31 @@ $(function() {
         var coverage_sum = _.reduce(view_jobs_coverage, function(memo, num) { return memo + parseFloat(num, 10); }, 0);
         var coverage_avg = coverage_sum / view_jobs_coverage.length;
         coverage_avg = isNaN(coverage_avg) ? '???' : coverage_avg.toFixed(2);
-              
-        var view_info_container = $('<div/>', {
-          class: 'view_info_container',
-        });
-                
-        var failing_tests = $('<h4/>', {
-          text: view_jobs_num_failing_tests + " / " + view_jobs_num_total_tests + " tests failing",
-          class: 'job_info clear' + (view_jobs_num_failing_tests > 0 ? ' text-error' : ''),
-        }).appendTo(view_info_container);
-                
-        $('<h4/>', {
-          text: 'Last job failed ' + last_failed_build_str + ' ago',
-          class: 'job_info clear',
-        }).appendTo(view_info_container);                     
+
+        var job_info_data = { 
+          'Tests failed' : view_jobs_num_failing_tests + " / " + view_jobs_num_total_tests,
+          'Coverage' : coverage_avg + " %", 
+          'Since last job failed' : last_failed_build_str,
+          'Test duration' : '2 min',
+        };
         
-        $('<h4/>', {
-          text: coverage_avg + "% coverage",
-          class: 'job_info clear' + (coverage_avg < 70 ? ' text-error' : ''),
-        }).appendTo(view_info_container);       
-      
-        view_info_container.appendTo(view_content_box);
+        $.each(job_info_data, function(stat_name, stat_value) {
+          var job_info_box = $('<div/>', {
+            class: 'job_info_box',
+          });
+          
+          $('<div/>', {
+            text: stat_value,
+            class: 'job_stat_value',
+          }).appendTo(job_info_box);       
+          
+          $('<div/>', {
+            text: stat_name,
+            class: 'job_stat_name',
+          }).appendTo(job_info_box);
+
+          job_info_box.appendTo(view_content_box);   
+        });
 
         $('<div/>', {
           text: 'Current job status',
