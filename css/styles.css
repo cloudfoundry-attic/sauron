@@ -2,6 +2,10 @@ body {
 	background: #ddd;
 }
 
+div.content_box:hover {
+  background: #f5f5f5;
+}
+
 div.content_box {
 	padding: 10px;
 	margin: 0 10px 10px 0;
@@ -28,6 +32,13 @@ a.job_status {
   border-right: 1px #fff solid;
   border-top: 1px #fff solid;
   display: block;
+  text-align: center;
+  font-size: .9em;
+  font-weight: bold;
+}
+
+a.job_status:hover {
+  opacity: .6;
 }
 
 .job_status_caption {
@@ -102,6 +113,12 @@ div.header form {
 
 .text-error {
   color: red;
+}
+
+.job_stat_value {
+  font-family: 'Average Sans', serif;
+  font-size: 1.5em;
+  color: #444;
 }
 
 a.job_status.status-success {

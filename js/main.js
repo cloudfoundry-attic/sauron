@@ -118,6 +118,7 @@ $(function() {
         var view_jobs_num_total_tests = 0;
         var view_jobs_list = [];
         var last_failed_builds = [];
+        var map_jobs_to_num_tests = {};
         
         // Start building the HTML display
         var view_content_box = $('<div/>', { 
@@ -156,6 +157,10 @@ $(function() {
               if (match && match.length > 1) {
                 view_jobs_num_failing_tests += parseInt(match[1]);
                 view_jobs_num_total_tests += parseInt(match[2]);
+                
+                // console.log(match[1]);
+                
+                map_jobs_to_num_tests[job_data.name] = match[1];
               }
             });
           }                    
@@ -205,6 +210,7 @@ $(function() {
             title: view_job.name + ' - ' + view_job.status,
             href: view_job.url,
             target: '_blank',
+            text: map_jobs_to_num_tests[view_job.name],
           })
             .addClass('status-' + view_job.status.toLowerCase())
             .appendTo(job_boxes_container);
