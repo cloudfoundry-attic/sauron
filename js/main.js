@@ -173,7 +173,7 @@ $(function() {
           'Tests failed' : view_jobs_num_failing_tests + " / " + view_jobs_num_total_tests,
           'Coverage' : coverage_avg + " %", 
           'Since last job failed' : last_failed_build_str,
-          'Test duration' : '2 min',
+          'Test duration' : '?',
         };
         
         $.each(job_info_data, function(stat_name, stat_value) {
@@ -194,11 +194,10 @@ $(function() {
           job_info_box.appendTo(view_content_box);   
         });
 
-        $('<div/>', {
-          text: 'Current job status',
-          class: 'clear job_status_caption',
-        }).appendTo(view_content_box);
-
+        var job_boxes_container = $('<div/>', {
+          class: 'job_boxes_container clear',
+        });
+        
         // Add the job status boxes
         $.each(view_jobs_list, function(index, view_job) {
           $('<a/>', {
@@ -208,16 +207,10 @@ $(function() {
             target: '_blank',
           })
             .addClass('status-' + view_job.status.toLowerCase())
-            .appendTo(view_content_box)
-            .on('mouseover', function() { 
-              var caption = $(this).attr('title') + ": " + view_job.status;
-              $(this).siblings('div.job_status_caption').text(caption);
-            })
-            .on('mouseout', function() {
-              $(this).siblings('div.job_status_caption').text( 'Current job status' );
-            });
+            .appendTo(job_boxes_container);
         });
       
+        job_boxes_container.appendTo(view_content_box);
         view_content_box.appendTo('div.content_box_container');
       });
     });
