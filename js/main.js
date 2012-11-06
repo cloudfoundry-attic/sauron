@@ -202,7 +202,7 @@ $(function() {
         $.each(view_jobs_list, function(index, view_job) {
           $('<a/>', {
             class: 'job_status',
-            title: view_job.name,
+            title: view_job.name + ' - ' + view_job.status,
             href: view_job.url,
             target: '_blank',
           })
