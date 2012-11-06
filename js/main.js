@@ -1,6 +1,6 @@
 $(function() {
   
-  var jenkins_root_url = 'http://ci-legacy.cloudfoundry.org';
+  var jenkins_root_url = 'http://ci.cloudfoundry.org';
   var jenkins_views = []; 
   var default_refresh_secs = 60;
   var timer_id = 0;
@@ -167,12 +167,12 @@ $(function() {
         });
         
         // Calculate last failed build
-        var last_failed_build_str = (last_failed_builds.length > 0) ? getTimeDeltaStr(_.max(last_failed_builds)) : '???';
+        var last_failed_build_str = (last_failed_builds.length > 0) ? getTimeDeltaStr(_.max(last_failed_builds)) : '?';
       
         // Calculate average coverage
         var coverage_sum = _.reduce(view_jobs_coverage, function(memo, num) { return memo + parseFloat(num, 10); }, 0);
         var coverage_avg = coverage_sum / view_jobs_coverage.length;
-        coverage_avg = isNaN(coverage_avg) ? '???' : coverage_avg.toFixed(2);
+        coverage_avg = isNaN(coverage_avg) ? '?' : coverage_avg.toFixed(2);
 
         var job_info_data = { 
           'Tests failed' : view_jobs_num_failing_tests + " / " + view_jobs_num_total_tests,
