@@ -1,9 +1,10 @@
 body {
-	background: #ddd;
+	background: #08427d;
+  color: #ddd;
 }
 
 div.content_box:hover {
-  background: #f5f5f5;
+  background: #1873ff;
 }
 
 div.content_box {
@@ -12,17 +13,25 @@ div.content_box {
 	float: left;
 	width: 280px;
 	height: 320px;
-	background: #eee;
+	background: #1873c7;
 	border-bottom: 1px #aaa solid;
 	border-right: 1px #aaa solid;
   border-radius: 4px;
+  color: #eee;
 }
 
 div.content_box h2 { 
   margin-top: 0;
   padding-bottom: 3px;
-  border-bottom: 1px #ccc solid;
   text-align: center;
+}
+
+div.content_box h2 a {
+  color: #f5f5f5;
+}
+
+div.content_box h2 a:hover {
+  color: #ccc;
 }
 
 a.job_status {
@@ -90,13 +99,16 @@ div.job_info_box {
 
 .job_stat_name {
   font-size: 0.9em;
-  color: #555;
+  color: lightskyblue;
 }
 
 .job_stat_value {
   font-weight: bold;
   font-size: 1.4em;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
+  font-family: 'Average Sans', serif;
+  font-size: 1.7em;
+  color: #eee;  
 }
 
 div.job_boxes_container {
@@ -114,12 +126,6 @@ div.header form {
 
 .text-error {
   color: red;
-}
-
-.job_stat_value {
-  font-family: 'Average Sans', serif;
-  font-size: 1.6em;
-  color: #444;
 }
 
 a.job_status.status-success {
