@@ -67,6 +67,7 @@ $(function() {
   
   // Build a human-readable string of the difference in time
   function getTimeDeltaStr(past_timestamp) {
+		
     var now_ts_normalized = new Date().getTime() / 1000;    
     var delta_seconds = now_ts_normalized - past_timestamp;
     var seconds_in_minute = 60;
@@ -76,25 +77,90 @@ $(function() {
     var seconds_in_month = 30 * seconds_in_day;
     
     if (delta_seconds < seconds_in_minute) {
-      return '1 min';
+      return '1m';
       
     } else if (delta_seconds < seconds_in_hour) {
-      return (delta_seconds / seconds_in_minute).toFixed(1) + ' mins';
+      return (delta_seconds / seconds_in_minute).toFixed(1) + 'm';
       
     } else if (delta_seconds < seconds_in_day) {
-      return (delta_seconds / seconds_in_hour).toFixed(1) + ' hours';
+      return (delta_seconds / seconds_in_hour).toFixed(1) + 'h';
       
     } else if (delta_seconds < seconds_in_week) {
-      return (delta_seconds / seconds_in_day).toFixed(1) + ' days';
+      return (delta_seconds / seconds_in_day).toFixed(1) + 'd';
       
     } else if (delta_seconds < seconds_in_month) {
-      return (delta_seconds / seconds_in_week).toFixed(1) + ' weeks';
+      return (delta_seconds / seconds_in_week).toFixed(1) + 'w';
 
     } else if (delta_seconds >= seconds_in_month) {
-      return (delta_seconds / seconds_in_week).toFixed(1) + ' months';
+      return (delta_seconds / seconds_in_week).toFixed(1) + 'w';
     }    
   }
-    
+
+	// -1 bad, 0 good, 1 warning
+	function checkThreshold( name, value ) {
+
+		var HOUR		          = 1;
+		var GOOD              = 0;
+		var BAD               = -1;
+		var WARNING           = 1;
+		
+    THRESHOLDS = {
+			"passed": { "bad": 80.0, "warning": 90.0, "good": 100.0 },
+			"coverage": { "bad": 50.0, "warning": 60.0, "good": 70.0 },
+			"last failed": { "bad": HOUR*4, "warning": HOUR*5, "good": HOUR*8 },
+			"duration": { "bad": HOUR*4, "warning": HOUR*3, "good": HOUR } }
+		
+		threshold = THRESHOLDS[name];
+		
+		if( name == "last failed" || name == "duration") {
+		
+		  tcast		= value[value.length-1];
+			
+		  //alert(tcast);
+		  if( tcast == 'd' || tcast == 'w' || tcast == 'h' ) {
+				
+				if(tcast == 'h') {
+					
+				  hours = parseFloat(value.substr( 0, value.length-1 ));
+					//alert(hours);					
+					if(hours >= threshold["good"]) {
+						return GOOD;
+					}
+					else if(hours >= threshold["warning"] && hours < threshold["good"]) {
+						return WARNING;
+					}
+					else {
+						return BAD;
+					}
+					
+				}
+				else {
+					return GOOD;
+				}
+				
+			}
+			else {
+				return BAD;
+			}
+			
+		}
+		else {
+
+		  if(value >= threshold["good"]) {
+			  return GOOD;
+			}
+			else if( value >= threshold["warning"] && value < threshold["good"] ) {
+				return WARNING;
+			}
+			else {
+				return BAD;
+			}
+
+		}
+		
+	} // checkThreshold
+
+	
   function refreshViews(jenkins_view_url) {
     $('#throbber').show();
     $('div.content_box').fadeOut('slow');
@@ -167,35 +233,76 @@ $(function() {
         });
         
         // Calculate last failed build
-        var last_failed_build_str = (last_failed_builds.length > 0) ? getTimeDeltaStr(_.max(last_failed_builds)) : '?';
+        var last_failed_build_str = (last_failed_builds.length > 0) ?
+				  getTimeDeltaStr(_.max(last_failed_builds)) : '?';
       
         // Calculate average coverage
-        var coverage_sum = _.reduce(view_jobs_coverage, function(memo, num) { return memo + parseFloat(num, 10); }, 0);
+        var coverage_sum = _.reduce(view_jobs_coverage, function(memo, num) {
+					return memo + parseFloat(num, 10); }, 0);
         var coverage_avg = coverage_sum / view_jobs_coverage.length;
         coverage_avg = isNaN(coverage_avg) ? '?' : coverage_avg.toFixed(2);
 
+				var total 		= parseInt(view_jobs_num_total_tests);
+				var failed		= parseInt(view_jobs_num_failing_tests);
+				var passed		= ((total - failed) / total * 100).toFixed(1);
+				var coverage	= parseFloat(coverage_avg).toFixed(1);
+				var duration  = "-";				
+								
         var job_info_data = { 
-          'Tests failed' : view_jobs_num_failing_tests + " / " + view_jobs_num_total_tests,
-          'Coverage' : coverage_avg + " %", 
-          'Since last job failed' : last_failed_build_str,
-          'Test duration' : '?',
+          'passed' : passed,
+          'coverage' : coverage, 
+          'last failed' : last_failed_build_str,
+          'duration' : duration,
         };
         
         $.each(job_info_data, function(stat_name, stat_value) {
+					
+					var percent = "";
+					
           var job_info_box = $('<div/>', {
             class: 'job_info_box',
           });
-          
-          $('<div/>', {
-            text: stat_value,
+        
+				  if( isNaN(stat_value) && stat_name != "last failed" &&
+						stat_name != "duration" ) {
+						stat_value = "-";
+					}
+					else if( stat_name == "passed" || stat_name == "coverage" ) {
+						percent = "%";
+					}
+					
+          var value = $('<p/>', {
+            text: stat_value + percent,
             class: 'job_stat_value',
           }).appendTo(job_info_box);       
           
-          $('<div/>', {
+          var label = $('<p/>', {
             text: stat_name,
             class: 'job_stat_name',
           }).appendTo(job_info_box);
 
+					if(stat_value == "-") {
+						job_info_box.addClass("bad");
+						value.addClass("bad");
+						label.addClass("bad");
+					}
+					else {
+						
+						threshold = checkThreshold( stat_name, stat_value );
+						
+						switch(threshold) {
+							case -1:
+							  value.addClass("bad");
+								job_info_box.addClass("bad");
+								label.addClass("bad");
+								break;					  
+							case  1: value.addClass("warning"); break;
+							case  0: value.addClass("good"); break;
+							default: value.addClass("good"); break;
+						}
+						
+					}						
+					
           job_info_box.appendTo(view_content_box);   
         });
 
@@ -209,8 +316,8 @@ $(function() {
             class: 'job_status',
             title: view_job.name + ' - ' + view_job.status,
             href: view_job.url,
-            target: '_blank',
-            text: map_jobs_to_num_tests[view_job.name],
+            target: '_blank'
+            //text: map_jobs_to_num_tests[view_job.name],
           })
             .addClass('status-' + view_job.status.toLowerCase())
             .appendTo(job_boxes_container);
