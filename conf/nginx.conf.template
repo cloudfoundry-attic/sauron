@@ -12,14 +12,13 @@ http {
   server {
 
     listen          80;
-    server_name     sauron.rbcon.com;
-    root            /web;
+    server_name     %SERVER_NAME;
+    root            %ROOTDIR/sauron.rbcon.com;
+    error_log       %ROOTDIR/logs/error.log;
+    access_log      %ROOTDIR/logs/access.log;
 
-    location /web {
-
-      root    html;
+    location / {
       index   index.html index.htm;
-
     }
 
   }
