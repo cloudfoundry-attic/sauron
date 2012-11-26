@@ -10,6 +10,7 @@ function refreshViews(jenkins_root_url) {
     red_anime: 'Failed',
     disabled: 'Disabled',
     grey: 'Disabled',
+    aborted: 'Disabled'
   };
 
   var VIEW_STAT_TYPE = {
