@@ -21,6 +21,10 @@ http {
       index   index.html index.htm;
     }
 
+    location /graph {
+      proxy_pass    http://SERVER_NAME:4567;
+    }
+
   }
 
 }
