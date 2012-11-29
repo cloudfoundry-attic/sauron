@@ -18,21 +18,21 @@ function getTimeDeltaStr(time_delta) {
   var seconds_in_month = 30 * seconds_in_day;
 
   if (time_delta < seconds_in_minute) {
-    return '1m';
+    return '1 m';
 
   } else if (time_delta < seconds_in_hour) {
-    return (time_delta / seconds_in_minute).toFixed(1) + ' min';
+    return (time_delta / seconds_in_minute).toFixed(1) + ' mi';
 
   } else if (time_delta < seconds_in_day) {
-    return (time_delta / seconds_in_hour).toFixed(1) + ' hrs';
+    return (time_delta / seconds_in_hour).toFixed(1) + ' h';
 
   } else if (time_delta < seconds_in_week) {
-    return (time_delta / seconds_in_day).toFixed(1) + ' days';
+    return (time_delta / seconds_in_day).toFixed(1) + ' d';
 
   } else if (time_delta < seconds_in_month) {
-    return (time_delta / seconds_in_week).toFixed(1) + ' wks';
+    return (time_delta / seconds_in_week).toFixed(1) + ' w';
 
   } else if (time_delta >= seconds_in_month) {
-    return (time_delta / seconds_in_month).toFixed(1) + ' mon';
+    return (time_delta / seconds_in_month).toFixed(1) + ' mo';
   }
 }

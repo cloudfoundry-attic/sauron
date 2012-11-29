@@ -10,6 +10,7 @@ function refreshViews(jenkins_root_url) {
     red_anime: 'Failed',
     disabled: 'Disabled',
     grey: 'Disabled',
+    grey_anime: 'Disabled',
     aborted: 'Disabled'
   };
 
@@ -114,6 +115,7 @@ function refreshViews(jenkins_root_url) {
 
       // Add the job status boxes
       $.each(view_jobs_list, function(index, view_job) {
+        console.log(view_job);
         $('<a/>', {
           class: 'job_status',
           title: view_job.name + ' - ' + view_job.status,

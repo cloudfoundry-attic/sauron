@@ -112,7 +112,7 @@ div.job_info_box {
 	font-weight: 100;
 	letter-spacing: 1px;
 	margin: 0px;
-	text-transform: uppercase;
+	text-transform: lowercase;
 }
 
 .job_stat_value {
