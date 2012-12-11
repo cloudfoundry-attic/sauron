@@ -8,20 +8,23 @@
   <link href="css/styles.css" rel="stylesheet"/>
   <link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-  <script src="http://underscorejs.org/underscore-min.js"></script>
+  <script src="js/underscore-min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/lib.js"></script>
   <script src="js/ui.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/jenkinsviewcache.js"></script>
+  <script src="js/render.js"></script>
 </head>
 
 <body>
   <div class="container-fluid">
     <div class="header">
-      <a class="btn btn-info refresh_button" id="refresh_now">Refresh Now</a>      
-      <a class="btn btn-success refresh_button" id="enable_auto_refresh">Enable Auto Refresh (every <span id="refresh_in_x_secs"></span> sec)</a>
-      <a class="btn btn-warning refresh_button" id="disable_auto_refresh">Disable Auto Refresh</a>      
-      
+      <a class="btn btn-info refresh_button" id="refresh_now">Refresh Now</a>
+      <a class="btn btn-success refresh_button" id="enable_auto_cycle">Enable Auto Cycle (every <span id="refresh_in_x_secs"></span> sec)</a>
+      <a class="btn btn-warning refresh_button" id="disable_auto_cycle">Disable Auto Cycle</a>
+
       <img id="throbber" src="img/ajax-loader.gif"/>
       
       <h2 id="jenkins_root_url"></h2>

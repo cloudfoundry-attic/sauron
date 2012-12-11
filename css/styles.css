@@ -26,12 +26,24 @@ div.content_box {
   color: #eee;
 }
 
+div.content_box.job {
+  height: 160px;
+}
+
 div.content_box h2 { 
   margin-top: 5px;
   padding-bottom: 3px;
   text-align: center;
 	letter-spacing: 1px;
 	font-weight: 100;
+}
+
+div.content_box.job h2 {
+  font-size: 24px;
+}
+
+div.content_box.job h2.tiny {
+  font-size: 16px;
 }
 
 div.content_box h2 a {
@@ -78,7 +90,7 @@ a.refresh_button {
   display: none;
 }
 
-#enable_auto_refresh, #disable_auto_refresh {
+#enable_auto_cycle, #disable_auto_cycle {
   display: none;
 }  
 
@@ -168,4 +180,9 @@ a.job_status.status-failed {
 
 a.job_status.status-disabled {
 	background: lightgray;
+}
+
+#jenkins_root_url {
+  cursor: pointer;
+}
 }

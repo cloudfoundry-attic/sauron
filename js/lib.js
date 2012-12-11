@@ -36,3 +36,7 @@ function getTimeDeltaStr(time_delta) {
     return (time_delta / seconds_in_month).toFixed(1) + ' mo';
   }
 }
+
+function strContains(needle, haystack) {
+  return haystack.indexOf(needle) !== -1;
+}
