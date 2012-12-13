@@ -4,7 +4,6 @@ function renderPage() {
   var curr_job = $('body').data('curr_view');
   
   $('#throbber').show();
-  $('div.content_box').fadeOut('slow');
   $('div.content_box').remove();
   $('#updated_at').text(getDateTime());
 
@@ -24,7 +23,7 @@ function renderPage() {
   }
 
   $('body').data('curr_page', curr_page);
-  
+
   $('#throbber').fadeOut('slow');
 }
 
@@ -48,5 +47,6 @@ function renderJenkinsJobsPage() {
 }
 
 function renderBugsPage() {
-  console.log("bugs page");
+  renderSeverityCountGraph();
+  renderDefectTrendGraph();
 }
