@@ -1,4 +1,4 @@
-REST = "http://192.168.174.134/";
+REST = "http://sauron.rbcon.com/";
 //
 // getSeverityCount
 //
