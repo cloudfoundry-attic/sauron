@@ -1,6 +1,6 @@
 function Config() {
 
-  if (arguments.callee._singletonInstance) 
+  if (arguments.callee._singletonInstance)
     return arguments.callee._singletonInstance;
   arguments.callee._singletonInstance = this;
 
@@ -12,7 +12,7 @@ function Config() {
     JENKINS_JOBS_IN_VIEW: 2,
     BUGS: 3
   };
-  
+
   this.PageJenkinsViews = function() {
     return this.PAGE_TYPES.JENKINS_VIEWS;
   }
@@ -42,4 +42,6 @@ function Config() {
   this.DefaultRefreshSecs = function() {
     return this.DEFAULT_REFRESH_SECS;
   }
+
+  this.REST = "http://sauron.rbcon.com/";
 }

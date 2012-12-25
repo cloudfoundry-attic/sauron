@@ -3,23 +3,22 @@ function renderSeverityCountGraph() {
 }
 
 function renderDefectTrendGraph() {
-  renderGraph('trends');
+  renderGraph('trend');
 }
 
-function renderGraph(graph_type) {
-  if (graph_type == 'severity') {
-    var data = '{"data":[["severity","count"],["p1",2],["p2",10],["p3",33]],"title":"severity count","x":"severity","y":"defect count","legend":"none","name":"severity"}';
-    data = $.parseJSON(data);
-    drawStackedColumn(data);
-  } else if (graph_type == 'trends') {
-    var data = '{"data":[["day","closed","open","new"],["nov 24",3,5,6],["nov 25",2,4,8],["nov 26",3,5,10]],"title":"defect trend","x":"day","y":"defect count","position":"right","name":"trends"}';
-    data = $.parseJSON(data);
-    drawStackedColumn(data);
-  }
+function renderGraph(name) {
+  var config = new Config();
+  $.ajax({
+    type: "GET",
+    url:  config.REST + "graphs/" + name,
+    success: function(xhr) {
+      drawStackedColumn(xhr);
+    },
+    dataType: "json"
+  });
 }
 
 function drawStackedColumn(input) {
-  
   var chart = $('<div/>', {
     id: input['name'] + '_chart',
     class: 'content_box chart'
@@ -44,7 +43,7 @@ function drawStackedColumn(input) {
     legend: { textStyle: { color: "#ffffff" }, position: input["legend"] },
     isStacked: true
   };
-  
+
   // Create and draw the visualization.
   var visualization = new google.visualization.ColumnChart(
     document.getElementById(input['name'] + "_chart")).
