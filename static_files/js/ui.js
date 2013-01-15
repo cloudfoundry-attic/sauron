@@ -20,12 +20,12 @@ function refreshJobs(jenkins_view_url) {
       });
 
       // 27 is roughly the # of letters that can fit on one line
-      var tiny = (job_data.name.length > 25) ? 'tiny' : '';      
+      var tiny = (job_data.name.length > 25) ? 'tiny' : '';
 
       // Render the title of the Jenkins job
       var view_title = '<h2 class="' + tiny + '"><a href="' + job_data.url + '">' + job_data.name + '</a></h2>';
       view_content_box.append(view_title);
-      
+
       var job_build_stability_pct = 0, job_status = mapColorToStatus(job_data.color);
       $.each(job_data.healthReport, function(index, healthReport_data) {
 
@@ -48,7 +48,6 @@ function refreshJobs(jenkins_view_url) {
       buildJobInfoBox(JOB_STAT_TYPE.build_stability, job_build_stability_pct).appendTo(view_content_box);
       buildJobInfoBox(JOB_STAT_TYPE.last_failed, last_failed_build_time_delta).appendTo(view_content_box);
       buildJobInfoBox(JOB_STAT_TYPE.duration, duration).appendTo(view_content_box);
-      
       view_content_box.appendTo('div.content_box_container');
     });
   });
@@ -154,10 +153,8 @@ function refreshViews() {
     last_failed: 3,
     duration: 4
   };
-  
   var config = new Config();
   var jenkins_root_url = config.JenkinsRootUrl();
-  
   jenkins_root_url += '/api/json?tree=views[name,url,jobs[name,color,url,lastFailedBuild[timestamp],healthReport[description,score]]]&jsonp=?';
 
   $.getJSON(jenkins_root_url, function(data) {
@@ -256,13 +253,12 @@ function refreshViews() {
 
       job_boxes_container.appendTo(view_content_box);
       view_content_box.appendTo('div.content_box_container');
-      
       view_content_box.on('click', function() {
         refreshUI(view_data.url);
       });
     });
   });
-  
+
   function getAlertLevel(view_stat_type, value) {
 
     if (!value) {

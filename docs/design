@@ -1,0 +1,42 @@
+stories pulled from pivotal tracker per project, stored in redis.
+
+use score to keep timestamp and story id
+
+charts:
+
+1.  defect trend: daily open, closed, and new count.
+2.  severity: p1, p2, p3, unclassified count.
+
+key, value
+
+defekts_last_sync, timestamp
+
+hashes:
+
+key, field, value
+project id, name, project name
+defekt id, name, defekt name
+defekt id, severity, p1|p2|p3|none
+defekt id, state, unscheduled, unstarted, started, finished, delivered,
+accepted, or rejected
+defekt id, owner, owner name
+
+
+
+sorted sets
+defekts, created_at, defekt id
+
+a layer to collect and normalize all user data,
+
+defekt
+defekt id, origin id, title, summary, severity, state, project name,
+creation date, owner (string), filed by
+
+project
+project id, project name, origin id
+
+abstract layer for persistence
+
+defekt object
+  to_json, data clean up, normalization
+

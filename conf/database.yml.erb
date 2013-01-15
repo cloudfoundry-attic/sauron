@@ -1,0 +1,13 @@
+development:
+  adapter: sqlite3
+  database: <%= dbfile %>
+  pool: 5
+  timeout: 5000
+
+production:
+  adapter: postgresql
+  encoding: utf8
+  database: defekts
+  username: <%= username %>
+  password: <%= password %>
+

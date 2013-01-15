@@ -1,6 +1,6 @@
 function JenkinsViewCache() {
 
-  if (arguments.callee._singletonInstance) 
+  if (arguments.callee._singletonInstance)
     return arguments.callee._singletonInstance;
   arguments.callee._singletonInstance = this;
 
@@ -9,13 +9,13 @@ function JenkinsViewCache() {
   this.sync = function() {
     var config = new Config();
     var jenkins_root_url = config.JenkinsRootUrl();
-    var url = jenkins_root_url + '/api/json?tree=views[name,url,jobs[name,color,url,lastFailedBuild[timestamp],healthReport[description,score]]]&jsonp=?';    
+    var url = jenkins_root_url + '/api/json?tree=views[name,url,jobs[name,color,url,lastFailedBuild[timestamp],healthReport[description,score]]]&jsonp=?';
     var refToFunction = this;
 
     this.reset();
 
     $.getJSON(url)
-      .done(function(data) { 
+      .done(function(data) {
         $.each(data.views, function(index, view_data) {
           refToFunction.add(view_data.url);
         });
@@ -33,7 +33,7 @@ function JenkinsViewCache() {
   this.first = function() {
     return url_cache[0];
   }
-  
+
   this.list = function() {
     return url_cache;
   }

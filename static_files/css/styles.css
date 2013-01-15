@@ -52,7 +52,7 @@ div.content_box.job h2.tiny {
 }
 
 div.content_box h2 a {
-  text-decoration: none;  
+  text-decoration: none;
   color: #f5f5f5;
 }
 
@@ -97,7 +97,7 @@ a.refresh_button {
 
 #enable_auto_cycle, #disable_auto_cycle {
   display: none;
-}  
+}
 
 #throbber {
   float: right;

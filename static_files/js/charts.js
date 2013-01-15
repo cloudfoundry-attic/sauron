@@ -10,7 +10,7 @@ function renderGraph(name) {
   var config = new Config();
   $.ajax({
     type: "GET",
-    url:  config.REST + "graphs/" + name,
+    url: "graphs/" + name,
     success: function(xhr) {
       drawStackedColumn(xhr);
     },

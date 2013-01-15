@@ -1,0 +1,9 @@
+---
+pivotal:
+- site_url: 'https://www.pivotaltracker.com/'
+  token: token
+
+jira:
+- site_url: 'https://cloudfoundry.atlassian.net'
+  username: user
+  password: password

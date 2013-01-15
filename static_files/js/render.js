@@ -2,7 +2,7 @@ function renderPage() {
   var config = new Config();
   var curr_page = $('body').data('curr_page') || config.PageJenkinsViews();
   var curr_job = $('body').data('curr_view');
-  
+
   $('#throbber').show();
   $('div.content_box').remove();
   $('#updated_at').text(getDateTime());
@@ -16,7 +16,7 @@ function renderPage() {
     renderJenkinsJobsPage();
     curr_page = config.PageBugs();
 
-  } 
+  }
   else if (curr_page == config.PageBugs()) {
     renderBugsPage();
     curr_page = config.PageJenkinsViews();
@@ -40,9 +40,9 @@ function renderJenkinsJobsPage() {
   var view_cache = new JenkinsViewCache();
   var curr_view = $('body').data('curr_view') || view_cache.first();
 
-  curr_view = pickNextViewForJobsPage(curr_view);  
+  curr_view = pickNextViewForJobsPage(curr_view);
   refreshJobs(curr_view);
-  
+
   $('body').data('curr_view', curr_view);
 }
 
