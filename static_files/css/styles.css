@@ -9,13 +9,17 @@ h2 {
   font-weight: 100;
 }
 
+div.headerToggle {
+  text-align: right;
+}
+
 div.content_box:hover {
   background: #004370;
 }
 
 div.content_box {
   padding: 2px;
-  margin: 0 10px 10px 0;
+  margin: 10px 10px 10px 0;
   float: left;
   width: 320px;
   height: 320px;

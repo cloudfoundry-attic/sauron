@@ -42,6 +42,4 @@ function Config() {
   this.DefaultRefreshSecs = function() {
     return this.DEFAULT_REFRESH_SECS;
   }
-
-  this.REST = "http://sauron.rbcon.com/";
 }

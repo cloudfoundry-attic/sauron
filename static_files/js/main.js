@@ -16,8 +16,10 @@ $(function() {
   $('#refresh_in_x_secs').text(default_refresh_secs);
   $('#enable_auto_cycle').show();
   $('#disable_auto_cycle').hide();
+  $('div.header').hide();
 
   renderPage();
+  timer_id = startCyclingView(default_refresh_secs);
 
   // Click this button to refetch data from Jenkins
   $('#refresh_now, #jenkins_root_url').on('click', function() {
@@ -33,9 +35,7 @@ $(function() {
 
     if ($(this).attr('id') == 'enable_auto_cycle') {
 
-      timer_id = setInterval(function() {
-        renderPage(jenkins_root_url);
-      }, default_refresh_secs * 1000);
+      timer_id = startCyclingView(default_refresh_secs);
 
       $('#disable_auto_cycle').show();
     } else if ($(this).attr('id') == 'disable_auto_cycle') {
@@ -61,5 +61,6 @@ $(function() {
     }
     return false;
   });
+
 });
 

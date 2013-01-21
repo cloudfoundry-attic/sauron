@@ -50,3 +50,9 @@ function renderBugsPage() {
   renderSeverityCountGraph();
   renderDefectTrendGraph();
 }
+
+function startCyclingView(default_refresh_secs) {
+  return setInterval(function() {
+        renderPage();
+      }, default_refresh_secs * 1000);
+}
