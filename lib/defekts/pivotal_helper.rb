@@ -17,25 +17,21 @@ module Defekts
 
     end
 
-    def self.sync(force=false, token)
-
-      if Defekts.check_synced and !force
-        return
-      end
-
-      PivotalTracker::Client.token = token
+    def self.sync(system, system_config, force=false)
+      PivotalTracker::Client.token = system_config['token']
 
       @projects = PivotalTracker::Project.all
 
       @projects.each do |p|
 
-        project = Project.find_by_origin_id(p.id)
+        project = Project.find_by_origin_id_and_system_id(p.id, system.id)
 
         if project.nil?
 
           project = Project.create(
             :name => p.name,
-            :origin_id => p.id )
+            :origin_id => p.id,
+            :system_id => system.id)
 
         end
 
@@ -45,7 +41,7 @@ module Defekts
 
           severity = get_severity(d.labels)
 
-          defekt = Defekt.find_by_origin_id(d.id)
+          defekt = Defekt.find_by_origin_id_and_project_id(d.id, project.id)
 
           if defekt.nil?
 
@@ -59,7 +55,8 @@ module Defekts
               :state => d.current_state,
               :severity => severity,
               :owner => d.owned_by,
-              :reporter => d.requested_by )
+              :reporter => d.requested_by,
+              :project_id => project.id )
 
           else
 

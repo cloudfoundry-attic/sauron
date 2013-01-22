@@ -6,17 +6,7 @@ module Defekts
   get "/" do
     defekt_config = settings.defekt_config
 
-    # need to change this to more generic way once class pattern is redefined.
-    if !defekt_config['pivotal'].nil?
-      defekt_config['pivotal'].each do |site|
-        PivotalHelper.sync(false, site['token'])
-      end
-    end
-    if !defekt_config['jira'].nil?
-      defekt_config['jira'].each do |site|
-        JiraHelper.sync(false, site['site_url'], site['username'], site['password'])
-      end
-    end
+    Analysis.sync_defkets defekt_config
 
     #p = Project.create( :name => "frameworks", :origin_id => "72352" )
     #po = Project.find_by_origin_id("72351")

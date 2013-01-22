@@ -49,6 +49,34 @@ module Defekts
 
     end
 
+    def self.sync_defkets(config, force=false)
+      if Defekts.check_synced && !force
+        return
+      end
+      config.keys.each do |site_name|
+        system_config = config[site_name]
+        system = sync_defekts_system(site_name, system_config)
+        case system.system_type
+        when 'pivotaltracker'
+          PivotalHelper.sync(system, system_config, false)
+        when 'jira'
+          JiraHelper.sync(system, system_config, false)
+        end
+      end
+    end
+
+    def self.sync_defekts_system(site_name, system_config)
+      system =  System.find_by_name(site_name)
+      if system.nil?
+        system = System.create(
+          :system_type => system_config['type'],
+          :name => site_name,
+          :url => system_config['site_url']
+        )
+      end
+      system
+    end
+
   end
 
 end

@@ -14,6 +14,7 @@ require File.join( File.dirname(__FILE__), "defekts", "version" )
 require File.join( File.dirname(__FILE__), "defekts/models", "defekt" )
 require File.join( File.dirname(__FILE__), "defekts/models", "project" )
 require File.join( File.dirname(__FILE__), "defekts/models", "projectdefekt" )
+require File.join( File.dirname(__FILE__), "defekts/models", "system" )
 
 module Defekts
 

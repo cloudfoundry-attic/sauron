@@ -9,4 +9,3 @@ class Defekt < ActiveRecord::Base
   end
 
 end
-
