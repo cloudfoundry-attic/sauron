@@ -14,8 +14,8 @@ $(function() {
   // Initialize the UI
   $('#jenkins_root_url').text(jenkins_root_url);
   $('#refresh_in_x_secs').text(default_refresh_secs);
-  $('#enable_auto_cycle').show();
-  $('#disable_auto_cycle').hide();
+  $('#enable_auto_cycle').hide();
+  $('#disable_auto_cycle').show();
   $('div.header').hide();
 
   renderPage();
@@ -49,7 +49,7 @@ $(function() {
   $('#update_jenkins_target').on('click', function() {
     if ($('#jenkins_target').val()) {
       var jenkins_root_url = 'http://' + $('#jenkins_target').val();
-
+      $.cookie('JENKINS_ROOT_URL',jenkins_root_url);
       config.setJenkinsRootUrl(jenkins_root_url);
       view_cache.sync();
       $('body').data('curr_page', config.PageJenkinsViews());

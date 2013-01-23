@@ -49,6 +49,9 @@ div.content_box h2 {
 
 div.content_box.job h2 {
   font-size: 24px;
+  width: 270px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 div.content_box.job h2.tiny {
@@ -191,6 +194,10 @@ a.job_status.status-disabled {
   background: lightgray;
 }
 
+img.close_icon {
+  float: right;
+  cursor: pointer;
+}
 #jenkins_root_url {
   cursor: pointer;
 }

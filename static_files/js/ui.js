@@ -13,10 +13,25 @@ function refreshJobs(jenkins_view_url) {
 
     // Iterate through each Jenkins job
     $.each(data.jobs, function(index, job_data) {
+      if(isBannedJob(job_data.name)){
+        return true;
+      }
 
       // Each Jenkins job is a div.content_box
       var view_content_box = $('<div/>', {
         class: 'content_box job',
+      });
+
+      var close_icon = $('<img/>', {
+        class: 'close_icon',
+        src: 'img/close.png'
+      })
+      close_icon.appendTo(view_content_box);
+      close_icon.on('click', function(){
+        if(confirmSetPreference()){
+          view_content_box.hide();
+          banJob(job_data.name);
+        }
       });
 
       // 27 is roughly the # of letters that can fit on one line
@@ -25,6 +40,8 @@ function refreshJobs(jenkins_view_url) {
       // Render the title of the Jenkins job
       var view_title = '<h2 class="' + tiny + '"><a href="' + job_data.url + '">' + job_data.name + '</a></h2>';
       view_content_box.append(view_title);
+
+
 
       var job_build_stability_pct = 0, job_status = mapColorToStatus(job_data.color);
       $.each(job_data.healthReport, function(index, healthReport_data) {
@@ -163,7 +180,7 @@ function refreshViews() {
     $.each(data.views, function(index, view_data) {
 
       // To avoid overloading the UI, skip any Jenkins view named 'All'
-      if (view_data.name.indexOf('All') >= 0) {
+      if (view_data.name.indexOf('All') >= 0 || isBannedView(view_data.name)) {
         return true;
       }
 
@@ -176,6 +193,19 @@ function refreshViews() {
       // Each Jenkins view is a div.content_box
       var view_content_box = $('<div/>', {
         class: 'content_box',
+      });
+
+      var close_icon = $('<img/>', {
+        class: 'close_icon',
+        src: 'img/close.png'
+      })
+      close_icon.appendTo(view_content_box);
+
+      close_icon.on('click', function(){
+        if(confirmSetPreference()){
+          view_content_box.hide();
+          banView(view_data.name);
+        }
       });
 
       // Render the title of the Jenkins view
@@ -240,6 +270,7 @@ function refreshViews() {
       var job_boxes_container = $('<div/>', {
         class: 'job_boxes_container clear',
       });
+
 
       // Add the job status boxes
       $.each(view_jobs_list, function(index, view_job) {

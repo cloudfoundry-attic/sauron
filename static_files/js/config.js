@@ -25,8 +25,10 @@ function Config() {
     return this.PAGE_TYPES.BUGS;
   }
 
+  this.DEFAULT_JENKINS_ROOT = 'http://ci.cloudfoundry.org';
+
   // Section: JENKINS_ROOT_URL is the URL of the main Jenkins page
-  this.JENKINS_ROOT_URL = 'http://ci.cloudfoundry.org';
+  this.JENKINS_ROOT_URL = $.cookie('JENKINS_ROOT_URL') || this.DEFAULT_JENKINS_ROOT;
 
   this.JenkinsRootUrl = function() {
     return this.JENKINS_ROOT_URL;
