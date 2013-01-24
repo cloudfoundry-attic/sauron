@@ -222,12 +222,6 @@ function refreshViews() {
             last_failed_builds.push(job_data.lastFailedBuild.timestamp / 1000);
           }
 
-          view_jobs_list.push({
-            name: job_data.name,
-            status: mapColorToStatus(job_data.color),
-            url: job_data.url
-          });
-
           $.each(job_data.healthReport, function(index, healthReport_data) {
 
             // Parse out the code coverage
@@ -244,6 +238,13 @@ function refreshViews() {
               view_jobs_num_failing_tests += parseInt(match[1]);
               view_jobs_num_total_tests += parseInt(match[2]);
             }
+          });
+
+          view_jobs_list.push({
+            name: job_data.name,
+            status: mapColorToStatus(job_data.color),
+            url: job_data.url,
+            casenum: view_jobs_num_total_tests
           });
         }
       });
@@ -271,15 +272,21 @@ function refreshViews() {
         class: 'job_boxes_container clear',
       });
 
-
       // Add the job status boxes
       $.each(view_jobs_list, function(index, view_job) {
-        $('<a/>', {
+        var job_box = $('<a/>', {
           class: 'job_status',
           title: view_job.name + ' - ' + view_job.status,
           href: view_job.url,
           target: '_blank'
         }).addClass('status-' + view_job.status.toLowerCase()).appendTo(job_boxes_container);
+
+        if(view_job.casenum==0) {
+          var question_mark_icon = $('<img/>', {
+            src: 'img/question-mark.png'
+          });
+          question_mark_icon.appendTo(job_box);
+        }
       });
 
       job_boxes_container.appendTo(view_content_box);
