@@ -222,12 +222,7 @@ function refreshViews() {
             last_failed_builds.push(job_data.lastFailedBuild.timestamp / 1000);
           }
 
-          view_jobs_list.push({
-            name: job_data.name,
-            status: mapColorToStatus(job_data.color),
-            url: job_data.url
-          });
-
+          var case_num = 0;
           $.each(job_data.healthReport, function(index, healthReport_data) {
 
             // Parse out the code coverage
@@ -243,7 +238,15 @@ function refreshViews() {
             if (match && match.length > 1) {
               view_jobs_num_failing_tests += parseInt(match[1]);
               view_jobs_num_total_tests += parseInt(match[2]);
+              case_num += parseInt(match[2]);
             }
+          });
+
+          view_jobs_list.push({
+            name: job_data.name,
+            status: mapColorToStatus(job_data.color),
+            url: job_data.url,
+            case_num: case_num
           });
         }
       });
@@ -271,15 +274,21 @@ function refreshViews() {
         class: 'job_boxes_container clear',
       });
 
-
       // Add the job status boxes
       $.each(view_jobs_list, function(index, view_job) {
-        $('<a/>', {
+        var job_box = $('<a/>', {
           class: 'job_status',
           title: view_job.name + ' - ' + view_job.status,
           href: view_job.url,
           target: '_blank'
         }).addClass('status-' + view_job.status.toLowerCase()).appendTo(job_boxes_container);
+
+        if(view_job.case_num==0) {
+          var triangle_mark_icon = $('<img/>', {
+            src: 'img/triangle-mark.png'
+          });
+          triangle_mark_icon.appendTo(job_box);
+        }
       });
 
       job_boxes_container.appendTo(view_content_box);
