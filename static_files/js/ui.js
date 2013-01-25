@@ -293,9 +293,6 @@ function refreshViews() {
 
       job_boxes_container.appendTo(view_content_box);
       view_content_box.appendTo('div.content_box_container');
-      view_content_box.on('click', function() {
-        refreshUI(view_data.url);
-      });
     });
   });
 

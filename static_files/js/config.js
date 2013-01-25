@@ -39,7 +39,7 @@ function Config() {
   }
 
   // Section: DEFAULT_REFRESH_SECS is the # of seconds between page rotation
-  this.DEFAULT_REFRESH_SECS = 5;
+  this.DEFAULT_REFRESH_SECS = 20;
 
   this.DefaultRefreshSecs = function() {
     return this.DEFAULT_REFRESH_SECS;

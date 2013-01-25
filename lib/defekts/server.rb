@@ -3,7 +3,11 @@ require 'yaml'
 module Defekts
   set :public_folder, File.join( File.dirname(__FILE__), "..", "..", "static_files" )
 
-  get "/" do
+  get '/' do
+    redirect '/index.html'
+  end
+
+  get "/sync" do
     defekt_config = settings.defekt_config
 
     Analysis.sync_defkets defekt_config
